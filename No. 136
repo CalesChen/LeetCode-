@@ -1,0 +1,18 @@
+#136 Solu1: 借助集合方法
+#136 Solu2: 借助异或操作
+#Solu1:
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        n1 = len(nums)
+        count = set()
+        for i in range(0,n1):
+            if(not(nums[i] in count)):
+                count.add(nums[i])
+            else:
+                count.remove(nums[i])
+        k = count.pop()
+        return k
+ Solu2
+ class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(lambda x, y:x^y, nums)
