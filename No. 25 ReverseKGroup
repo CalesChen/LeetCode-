@@ -1,0 +1,30 @@
+// 超时算法
+          int count_k = 0;
+          int flag = 1;
+          ListNode pre = new ListNode(0);
+          pre.next = head;
+          ListNode start = pre;
+          ListNode end = start;
+          while((end.next!= null)){
+              if(flag == 0){
+                  start = end; //start 节点不需要常常变换
+                  flag = 1;
+              }
+              end = end.next;  // end节点起到遍历的作用
+              count_k += 1;    // record group
+              if(count_k == k){
+                  ListNode temp = null;
+                  ListNode first = null;
+                  first = start.next;  //第一个开始变换的节点，不改变
+                  temp = first.next;  //当前位移节点
+                  for(int i=1; i<k; i+=1){
+                      first.next = temp.next;
+                      temp.next = start.next;
+                      start.next  = temp;
+                  }
+                  count_k = 0;
+                  end = first;
+                  flag = 0;
+              }
+          }
+          return pre.next;
