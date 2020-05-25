@@ -1,0 +1,87 @@
+//对于该题而言，需要存在1. 加入head后 2. 移除tail前 3. 移除节点 4. 移动至头部 
+
+
+class LRUCache {
+    class DlinkedNode{
+        int key;
+        int value;
+        DlinkedNode pre;
+        DlinkedNode next;
+        public DlinkedNode(){}
+        public DlinkedNode(int _key, int _value){key = _key; value = _value; }
+    }
+    private int capacity;
+    private int size;
+    private DlinkedNode head;
+    private DlinkedNode tail;
+    private Map<Integer,DlinkedNode> cache = new HashMap<Integer,DlinkedNode>();
+    public LRUCache(int capacity) {
+        this.size = 0;
+        this.capacity = capacity;
+        head = new DlinkedNode();
+        tail = new DlinkedNode();
+        head.next = tail;
+        tail.pre = head;
+    }
+    int get(int key) {
+        DlinkedNode node = cache.get(key);
+        if(node == null){
+            return -1;
+        }
+        movetoHead(node);
+        return node.value;
+    }
+    
+    void put(int key, int value) {
+        DlinkedNode node = cache.get(key);
+        if(node == null){
+            DlinkedNode newnode = new DlinkedNode(key,value);
+            cache.put(key,newnode);
+            addtoHead(newnode);
+            size+=1;
+            if(size>capacity){
+                DlinkedNode tail = removeTail();
+                cache.remove(tail.key);
+                size-=1;
+            }
+
+        }
+        else{
+            node.value = value;
+            movetoHead(node);
+        }
+        
+
+    }
+
+    private void addtoHead(DlinkedNode node){
+        node.pre = head;
+        node.next = head.next;
+        head.next.pre = node;
+        head.next = node;
+    }
+
+    private void removeNode(DlinkedNode node){
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+    }
+
+    private void movetoHead(DlinkedNode node){
+        removeNode(node);
+        addtoHead(node);
+    }
+
+    private DlinkedNode removeTail(){
+        DlinkedNode res = tail.pre;
+        removeNode(res);
+        return res;
+    }
+
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
