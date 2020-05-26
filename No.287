@@ -1,0 +1,27 @@
+// target前 count[i] <= i; target以及之后 count[i]>i;
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int len = nums.length;
+        int l = 1, r = len-1;   //从1-n中选择数字（总共有n+1个数字的情况下）
+        int ans= 0;
+        while(l<=r){
+            int mid = (l+r)>>1;
+            int count = 0;
+            for(int i = 0; i<len;i+=1){
+                if(nums[i]<=mid){
+                    count += 1;
+                }
+            }
+            if(count<=mid){
+                l = mid+1;
+            }
+            else{
+                r = mid-1;
+                ans = mid;
+            }
+
+        }
+        return ans;
+    }   
+}
