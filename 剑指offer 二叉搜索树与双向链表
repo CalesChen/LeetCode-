@@ -1,0 +1,33 @@
+//通过不断改变temp的值来完成递归操作
+
+//temp为已改变链表的最大值
+public class Solution {
+    TreeNode temp = null;
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree == null) return null;
+        Convert(pRootOfTree.left);
+        if(temp != null){
+            pRootOfTree.left = temp;
+            temp.right = pRootOfTree;
+        }
+        temp = pRootOfTree;
+        Convert(pRootOfTree.right);
+        return temp;
+    }
+}
+
+//temp为已改变链表的最小值
+public class Solution {
+    TreeNode temp = null;
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree == null) return null;
+        Convert(pRootOfTree.right);
+        if(temp != null){
+            pRootOfTree.right = temp;
+            temp.left = pRootOfTree;
+        }
+        temp = pRootOfTree;
+        Convert(pRootOfTree.left);
+        return temp;
+    }
+}
