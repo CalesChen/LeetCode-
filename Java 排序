@@ -1,0 +1,3 @@
+二维数组
+Arrays.sort(arr, (a, b) -> （a[clomun]- b[clomun]）)
+以行为整体 按指定列比较
