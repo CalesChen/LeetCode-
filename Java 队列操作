@@ -1,0 +1,21 @@
+#Queue
+队列是一个典型的先进先出（FIFO）的容器。
+
+##1、offer()和add()的区别
+###相同点：都是向队列中添加一个元素。
+###不同点：但是如果想在一个满的队列中加入一个新元素，
+
+调用 add() 方法就会抛出一个 unchecked 异常，
+调用 offer()方法会返回 false。
+##2、peek()和element()的区别
+###相同点：都将在不移除的情况下返回队头
+###不同点：
+
+调用peek()方法在队列为空时返回null
+调用element()方法会抛出NoSuchElementException异常。
+##3、poll()和remove()的区别 ***
+###相同点：都将移除并返回对头
+###不同点：
+
+调用poll()在队列为空时返回null
+调用remove()会抛出NoSuchElementException异常。
